@@ -1,0 +1,46 @@
+input[type=range] {
+    /*removes default webkit styles*/
+    -webkit-appearance: none;
+    width: 100%;
+    /*fix for FF unable to apply focus style bug */
+    border: 1px solid white;
+}
+input[type=range]::-webkit-slider-runnable-track {
+    height: 1.5em;
+    background: #ddd;
+    border: none;
+    border-radius: 0.75em;
+}
+input[type=range]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
+    background: violet;
+    margin-top: -4px;
+}
+
+input[type=range]::-ms-track {
+    
+    height: 5px;
+    
+    /*remove bg colour from the track, we'll use ms-fill-lower and ms-fill-upper instead */
+    background: transparent;
+    
+    /*leave room for the larger thumb to overflow with a transparent border */
+    border-color: transparent;
+    border-width: 6px 0;
+
+    /*remove default tick marks*/
+    color: transparent;
+
+}
+
+input[type=range]::-ms-thumb {
+    border: none;
+    height: 16px;
+    width: 16px;
+    border-radius: 50%;
+    background: goldenrod;
+}

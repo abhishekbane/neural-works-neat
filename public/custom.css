@@ -1,0 +1,52 @@
+body{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif !important;
+}
+
+.my-modal-background{
+    position: fixed; /* Stay in place */
+  z-index: 200; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: grey; /* Fallback color */
+  background-color: rgba(128, 128, 128, 0.4); /* Black w/ opacity */
+}
+
+.my-modal{
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    margin-top: 2em;
+}
+
+.my-screencards-grid-container {
+  padding: 32px 16px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.my-screencards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 300px);
+  grid-gap: 10px;
+  gap: 10px;
+}
+
+.my-card {
+  padding: 16px 16px;
+  border: 1px solid #DADADA;
+  width: 300px;
+  box-shadow: 1px 2px 10px 1px #DADADA;
+  cursor: default;
+  height: 100%;
+}
+
+.my-card:hover{
+  box-shadow: 3px 6px 10px 1px #DADADA;
+}
+
+.my-card:active {
+  box-shadow: none;
+}
