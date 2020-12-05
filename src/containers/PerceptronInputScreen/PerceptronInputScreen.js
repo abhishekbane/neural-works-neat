@@ -3,13 +3,10 @@ import React, {Component} from 'react';
 import OperationalInputTable from '../OperationalInputTable/OperationalInputTable';
 import SubmitNetworkDetails from '../../components/SubmitNetworkDetails/SubmitNetworkDetails';
 import TextBoxWithRangeInput from '../../components/TextBoxWithRangeInput/TextBoxWithRangeInput';
-import Modal from '../../components/UI/Modal/Modal';
-import ResultTables from '../../components/ResultTables/ResultTables';
+import ResultModal from '../../components/ResultModal/ResultModal';
 
 class PerceptronInputScreen extends Component {
 
-    networkOutput = [];
-    isRecurring = false;
     state={
         table:{
             xi:{
@@ -33,7 +30,9 @@ class PerceptronInputScreen extends Component {
         defaultWeight: 0,
         alpha: 0,
         theta: 0,
-        showOutput: false
+        showOutput: false,
+        networkOutput: [],
+        isRecurring: false
     }
 
     getInputTable = (table) => {
@@ -44,21 +43,20 @@ class PerceptronInputScreen extends Component {
     }
 
     getNetworkProperties = (data) => {
-        this.networkOutput = data.tables.map((table) => {return {...this.state.table , ...table}});
-        this.isRecurring = data.isRecurring;
+        const networkOutput = data.tables.map((table) => {return {...this.state.table , ...table}});
+        const isRecurring = data.isRecurring;
         this.setState(
             {
-                showOutput: true
+                networkOutput: networkOutput,
+                isRecurring: isRecurring
             }
         );
     }
 
     getDefaultWeight = (weightValue) => {
-        
         this.setState({
             defaultWeight: weightValue
-        })
-
+        });
     }
 
     closeModal = () => {
@@ -70,24 +68,18 @@ class PerceptronInputScreen extends Component {
     getAlpha = (alphaValue) => {
         this.setState({
             alpha: alphaValue
-        })
+        });
     }
 
     getTheta = (thetaValue) => {
         this.setState({
             theta: thetaValue
-        })
+        });
     }
 
     render(){
-        let resultModal;
+        const recurring = this.state.isRecurring ? <div><p>Showing top 10 epochs as the result is recurring...</p><br/></div> : null;
 
-        const recurring = this.isRecurring ? <p>Showing top 10 epochs as the result is recurring...</p> : null;
-
-        resultModal = this.state.showOutput 
-            ? <Modal modalHeader="Results" closeModal={this.closeModal}>{recurring}<ResultTables tableCollection={this.networkOutput}/></Modal> 
-            : null;
-        
         return(
             <div>
                 <div className='tile is-parent'>
@@ -117,6 +109,11 @@ class PerceptronInputScreen extends Component {
                             </div>
                         </div>
                         <SubmitNetworkDetails 
+                            onClick={ () => {
+                                this.setState({
+                                    showOutput: true
+                                });
+                            } }
                             getNetworkProperties={this.getNetworkProperties} networkPath='PerceptronCalculation.php' 
                             inputTable={this.state.table}
                             otherNetworkProps={{
@@ -128,7 +125,7 @@ class PerceptronInputScreen extends Component {
                             defaultWeight={this.state.defaultWeight}/>
                     </div>
                 </div>
-                {resultModal}
+                <ResultModal closeModal={ this.closeModal } networkOutput={ this.state.networkOutput } showResults={ this.state.showOutput }>{ recurring }</ResultModal> 
             </div>
         );
     }

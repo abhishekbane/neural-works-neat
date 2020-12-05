@@ -8,7 +8,7 @@ class HomeScreen extends Component {
         networks:[
             {
                 name: 'Hebb',
-                info: 'Stated by Donald Hebb in 1949. Based on the Hebbian theory. Based on the Hebbian theory. Often summarized as "Cells that fire together wire together".',
+                info: 'Stated by Donald Hebb in 1949. Based on the Hebbian theory. Often summarized as "Cells that fire together wire together".',
                 path: HEBB_INPUT_PAGE
             },
             {

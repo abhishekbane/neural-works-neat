@@ -2,8 +2,7 @@ import React, {Component} from 'react';
 
 import SubmitNetworkDetails from '../../components/SubmitNetworkDetails/SubmitNetworkDetails';
 import OperationalInputTable from '../OperationalInputTable/OperationalInputTable';
-import Modal from '../../components/UI/Modal/Modal';
-import ResultTables from '../../components/ResultTables/ResultTables';
+import ResultModal from '../../components/ResultModal/ResultModal';
 
 class HebbInputScreen extends Component {
 
@@ -28,24 +27,28 @@ class HebbInputScreen extends Component {
                 ]
             }
         },
+        networkOutput: [],
         bias: 1,
-        showOutput: false
+        showOutput: false,
+        outputFetched: false
     }
 
     closeModal = () => {
         this.setState({
-            showOutput: false
+            showOutput: false,
+            networkOutput: []
         })
     }
 
     getNetworkProperties = (data) => {
-        this.networkOutput = data.tables.map((table) => {return {...this.state.table , ...table}});
+        const networkOutput = data.tables.map((table) => {return {...this.state.table , ...table}});
         
         this.setState(
             {
-                showOutput: true
+                networkOutput: networkOutput
             }
         );
+        
     };
 
     getInputTable = (table) => {
@@ -54,22 +57,27 @@ class HebbInputScreen extends Component {
         });
     };
 
-    
 
     render() {
-        const networkOutputModal = this.state.showOutput ? <Modal closeModal={this.closeModal} modalHeader="Results"><ResultTables tableCollection={this.networkOutput} /></Modal> : null;
-
         return(
             <div className='tile is-parent'>
                 <div className='container'>
+                    <ResultModal 
+                        closeModal={ this.closeModal } 
+                        resultsFetched={ this.state.outputFetched } 
+                        showResults={ this.state.showOutput }  
+                        networkOutput={ this.state.networkOutput } />
+
                     <OperationalInputTable inputTable={this.state.table} getInputTable={this.getInputTable}/>
                     <SubmitNetworkDetails 
+                        onClick={ () => this.setState({
+                            showOutput: true
+                        }) }
                         getNetworkProperties={this.getNetworkProperties} 
                         networkPath='HebbCalculation.php' 
                         inputTable={this.state.table} 
                         otherNetworkProps={{bias:this.state.bias}}/>
                 </div>
-                {networkOutputModal}
             </div>
         );
     }

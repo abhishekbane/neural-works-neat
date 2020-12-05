@@ -15,19 +15,19 @@ class App extends Component {
     let currentPage = 'Home';
 
     switch (this.props.location.pathname.toLocaleLowerCase()) {
-      case HEBB_INPUT_PAGE:
+      case HEBB_INPUT_PAGE.toLowerCase():
         currentPage='Hebb Network';
         break;
 
-      case PERCEPTRON_INPUT_PAGE:
+      case PERCEPTRON_INPUT_PAGE.toLowerCase():
         currentPage='Perceptron Network';
         break;
 
-      case ADALINE_INPUT_PAGE:
+      case ADALINE_INPUT_PAGE.toLowerCase():
         currentPage='Adaline Network';
         break;
 
-      case BACK_PROPOGATION_INPUT_PAGE:
+      case BACK_PROPOGATION_INPUT_PAGE.toLowerCase():
         currentPage='Back Propagation Network';
         break;
 

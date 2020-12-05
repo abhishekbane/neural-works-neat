@@ -34,10 +34,13 @@ const sendData = (
 
 const submitNetworkDetails = (props) => {
     return(
-        <SendButton clicked={() => sendData(props.networkPath, 
-                                            props.inputTable, 
-                                            props.otherNetworkProps, 
-                                            props.getNetworkProperties)}>Calculate</SendButton>
+        <SendButton clicked={() => {
+            props.onClick();
+            sendData(props.networkPath, 
+            props.inputTable, 
+            props.otherNetworkProps, 
+            props.getNetworkProperties);
+        }}>Calculate</SendButton>
     );
 }
 
